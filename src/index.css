@@ -4,3 +4,8 @@
     overscroll-behavior-y: none;
 }
 
+
+@theme {
+  --color-bg-dark: #1e1e1e;
+  --color-bg-light: #ffffff;
+}

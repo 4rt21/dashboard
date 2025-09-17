@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { type IconType } from "react-icons";
 import { FiHome, FiPaperclip, FiUsers } from "react-icons/fi";
 
+
 export const RouteSelect = () => {
   return (
     <div className="space-y-1">
@@ -21,6 +22,8 @@ const Route = ({
   title: string;
   path: string;
 }) => {
+
+
   return (
     <NavLink
       to={path}
@@ -28,8 +31,8 @@ const Route = ({
       className={({ isActive }) =>
         `flex items-center justify-start gap-2 w-full rounded px-2 py-1.5 text-sm transition-[box-shadow,_background-color,_color] ${
           isActive
-            ? "bg-white text-stone-950 shadow"
-            : "hover:bg-stone-200 bg-transparent text-stone-500 shadow-none"
+            ? "bg-violet-100 text-stone-950"
+            : "hover:bg-stone-100 bg-transparent text-stone-500 shadow-none"
         }`
       }
     >
@@ -39,7 +42,7 @@ const Route = ({
             `${title}: isActive = ${isActive}, current path = ${window.location.pathname}`
           )}
           <Icon className={isActive ? "text-violet-500" : ""} />
-          <span>{title}</span>
+          <span className={isActive ? "text-violet-500" : ""}>{title}</span>
         </>
       )}
     </NavLink>

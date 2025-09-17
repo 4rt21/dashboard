@@ -8,13 +8,20 @@ import {
 
 import Reportes from "./pages/Reportes";
 import Categorias from "./pages/Categorias";
-import RootLayout from "./pages/RootLayout";
+import RootLayout from "./layouts/RootLayout";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import ProtectedRoute from "./utils/ProtectedRoute";
-import { createContext } from "react";
+import { createContext, useState } from "react";
+
+export const DarkThemeContext = createContext({
+  theme: false,
+  setTheme: (value: boolean | ((prev: boolean) => boolean)) => {},
+});
 function App() {
+  const [theme, setTheme] = useState<boolean>(false);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
@@ -39,13 +46,10 @@ function App() {
     )
   );
 
-  const isAuthenticated = createContext(false);
-  const theme = createContext("light");
-
   return (
-    <main className="">
+    <DarkThemeContext.Provider value={{ theme, setTheme }}>
       <RouterProvider router={router} />
-    </main>
+    </DarkThemeContext.Provider>
   );
 }
 

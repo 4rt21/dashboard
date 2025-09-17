@@ -1,4 +1,5 @@
 import React from "react";
+import ThemeButton from "../ThemeButton";
 
 export const Plan = () => {
   return (
@@ -12,6 +13,7 @@ export const Plan = () => {
         <button className="px-2 py-1.5 font-medium bg-stone-200 hover:bg-stone-300 transition-colors rounded">
           Support
         </button>
+        <ThemeButton />
       </div>
     </div>
   );
