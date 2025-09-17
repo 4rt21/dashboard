@@ -1,33 +1,52 @@
 import {
-    createBrowserRouter,
-    createRoutesFromElements,
-    Route,
-    RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+  RouterProvider,
 } from "react-router-dom";
 
-import Reportes from "./components/Reportes";
-import Categorias from "./components/Categorias";
+import Reportes from "./pages/Reportes";
+import Categorias from "./pages/Categorias";
 import RootLayout from "./pages/RootLayout";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import ProtectedRoute from "./utils/ProtectedRoute";
+import { createContext } from "react";
 function App() {
-    const router = createBrowserRouter(
-        createRoutesFromElements(
-            <Route path="/" element={<RootLayout />}>
-                <Route index element={<Dashboard />} />
-                <Route path="reportes" element={<Reportes />} />
-                <Route path="categorias" element={<Categorias />} />
-                <Route path="*" element={<NotFound />} />
-            </Route>
-        )
-    );
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <RootLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="reportes" element={<Reportes />} />
+          <Route path="categorias" element={<Categorias />} />
+        </Route>
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-    return (
-        <main className="grid gap-4 p-4 grid-cols-[220px,_1fr] min-h-screen bg-gray-100">
-            <RouterProvider router={router} />
-        </main>
-    );
+        <Route path="*" element={<NotFound />} />
+
+        <Route path="login" element={<Login />} />
+      </>
+    )
+  );
+
+  const isAuthenticated = createContext(false);
+  const theme = createContext("light");
+
+  return (
+    <main className="">
+      <RouterProvider router={router} />
+    </main>
+  );
 }
 
 export default App;
-
